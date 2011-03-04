@@ -1,0 +1,6 @@
+[submodule "lesscss-engine"]
+	path = lesscss-engine
+	url = git://github.com/asual/lesscss-engine.git
+[submodule "lesscss-servlet"]
+	path = lesscss-servlet
+	url = git://github.com/asual/lesscss-servlet.git
