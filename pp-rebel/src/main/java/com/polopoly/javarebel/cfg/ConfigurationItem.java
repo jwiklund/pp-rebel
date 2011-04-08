@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 public class ConfigurationItem {
 
     @XmlElementRefs({
-        @XmlElementRef(name = "javascript", type = JAXBElement.class),
+        @XmlElementRef(name = "js", type = JAXBElement.class),
         @XmlElementRef(name = "less", type = JAXBElement.class),
         @XmlElementRef(name = "dir", type = JAXBElement.class)
     })

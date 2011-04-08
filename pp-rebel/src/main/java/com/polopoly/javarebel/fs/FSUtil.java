@@ -1,4 +1,4 @@
-package com.polopoly.javarebel;
+package com.polopoly.javarebel.fs;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +18,6 @@ public class FSUtil {
             write.write(bytes, 0, count);
         }
         write.flush();
-        write.close();
         read.close();
     }
 }

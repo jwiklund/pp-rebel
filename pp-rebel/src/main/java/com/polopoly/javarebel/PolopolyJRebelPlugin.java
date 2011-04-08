@@ -22,6 +22,8 @@ import org.zeroturnaround.javarebel.Integration;
 import org.zeroturnaround.javarebel.IntegrationFactory;
 import org.zeroturnaround.javarebel.Plugin;
 
+import com.polopoly.javarebel.contentbase.ContentBaseProcessor;
+
 /**
  * A plugin that loads content files from disk (hopefully)
  */

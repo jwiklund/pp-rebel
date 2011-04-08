@@ -30,8 +30,8 @@ public class ConfigurationTest {
                                 new Configuration(Arrays.asList(new ConfigurationItem("example"))) });
         list.add(new Object[] { "<pp-rebel><content externalid=\"example\"><dir>path</dir></content></pp-rebel>",
                                 new Configuration(Arrays.asList(new ConfigurationItem("example", "dir", "path"))) });
-        list.add(new Object[] { "<pp-rebel><content externalid=\"example\"><javascript>path</javascript></content></pp-rebel>",
-                                new Configuration(Arrays.asList(new ConfigurationItem("example", "javascript", "path"))) });
+        list.add(new Object[] { "<pp-rebel><content externalid=\"example\"><js>path</js></content></pp-rebel>",
+                                new Configuration(Arrays.asList(new ConfigurationItem("example", "js", "path"))) });
         list.add(new Object[] { "<pp-rebel><content externalid=\"example1\"><dir>path1</dir></content>" +
                                           "<content externalid=\"example2\"><less>path2</less></content></pp-rebel>",
                                 new Configuration(Arrays.asList(new ConfigurationItem("example1", "dir", "path1"),

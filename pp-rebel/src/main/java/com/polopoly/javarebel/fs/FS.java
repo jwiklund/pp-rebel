@@ -1,4 +1,4 @@
-package com.polopoly.javarebel;
+package com.polopoly.javarebel.fs;
 
 import java.io.IOException;
 import java.io.OutputStream;

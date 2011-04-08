@@ -1,9 +1,13 @@
-package com.polopoly.javarebel;
+package com.polopoly.javarebel.contentbase;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.polopoly.javarebel.fs.FS;
+import com.polopoly.javarebel.fs.FSProvider;
+import com.polopoly.javarebel.fs.PolopolyFSProvider;
 
 public class ContentBaseExportHandler {
 

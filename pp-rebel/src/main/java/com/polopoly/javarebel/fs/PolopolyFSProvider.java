@@ -1,4 +1,4 @@
-package com.polopoly.javarebel;
+package com.polopoly.javarebel.fs;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,5 @@
-package com.polopoly.javarebel;
+package com.polopoly.javarebel.fs;
+
 
 public interface FSProvider {
 

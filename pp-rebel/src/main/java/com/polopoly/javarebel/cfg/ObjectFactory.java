@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Javascript_QNAME = new QName("", "javascript");
+    private final static QName _Javascript_QNAME = new QName("", "js");
     private final static QName _Dir_QNAME = new QName("", "dir");
     private final static QName _Less_QNAME = new QName("", "less");
 
@@ -24,7 +24,7 @@ public class ObjectFactory {
         return new ConfigurationItem();
     }
 
-    @XmlElementDecl(namespace = "", name = "javascript")
+    @XmlElementDecl(namespace = "", name = "js")
     public JAXBElement<String> createJavascript(String value) {
         return new JAXBElement<String>(_Javascript_QNAME, String.class, null, value);
     }

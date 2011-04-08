@@ -1,4 +1,4 @@
-package com.polopoly.javarebel;
+package com.polopoly.javarebel.contentbase;
 
 import org.zeroturnaround.bundled.javassist.ClassPool;
 import org.zeroturnaround.bundled.javassist.CtClass;
@@ -23,7 +23,7 @@ public class ContentBaseProcessor extends JavassistClassBytecodeProcessor {
             ctClass.addMethod(externalidMethod);
             CtMethod exportMethod = ctClass.getDeclaredMethod("exportFile");
             exportMethod.insertBefore("{" +           		
-                                      "  if (com.polopoly.javarebel.ContentBaseExportHandler.exportFileHandled($0.generated$getExternalId(), $1, $2)) {" +
+                                      "  if (com.polopoly.javarebel.contentbase.ContentBaseExportHandler.exportFileHandled($0.generated$getExternalId(), $1, $2)) {" +
                                       "    return;" +
                                       "  }" +
             		              "}");
@@ -31,7 +31,7 @@ public class ContentBaseProcessor extends JavassistClassBytecodeProcessor {
             infoMethod.setName("original$getFileInfos");
             CtMethod fixedInfoMethod = new CtMethod(infoMethod.getReturnType(), "getFileInfos", infoMethod.getParameterTypes(), ctClass);
             fixedInfoMethod.setBody("{" +
-                                    "  Object[] handled = com.polopoly.javarebel.ContentBaseExportHandler.fileInfosHandler($0.generated$getExternalId(), $1);" +
+                                    "  Object[] handled = com.polopoly.javarebel.contentbase.ContentBaseExportHandler.fileInfosHandler($0.generated$getExternalId(), $1);" +
                                     "  if (handled == null) {" +
                                     "    return $0.original$getFileInfos($1);" +
                                     "  } else {" +
