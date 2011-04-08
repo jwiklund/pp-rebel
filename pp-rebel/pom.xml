@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>pp-rebel</artifactId>
+    
+    <!--  added -->
+    <groupId>com.polopoly</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <!--  eof-added -->
+    
+    <packaging>jar</packaging>
+
+    <properties>
+      <jr.version>3.6.1</jr.version>
+    </properties>
+    
+    <name>Polopoly JRebel Plugin</name>
+    <url>http://maven.apache.org</url>
+    <licenses>
+        <license>
+            <name>Apache 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <dependencies>
+        <dependency>
+          <groupId>org.zeroturnaround</groupId>
+            <artifactId>jr-sdk</artifactId>
+            <version>${jr.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.zeroturnaround</groupId>
+            <artifactId>jr-utils</artifactId>
+            <version>${jr.version}</version>
+            <scope>provided</scope>
+        </dependency>
+	<dependency>
+	  <artifactId>junit</artifactId>
+	  <groupId>junit</groupId>
+	  <version>4.8.1</version>
+	  <scope>test</scope>
+	</dependency>
+    </dependencies>
+    
+    <repositories>
+        <repository>
+            <id>zt-repo</id>
+            <url>http://repos.zeroturnaround.com/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+        </repository>
+        <repository>
+            <id>zt-repo-snapshots</id>
+            <url>http://repos.zeroturnaround.com/maven2-snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>ibiblio</id>
+            <url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <JavaRebel-Plugin>com.polopoly.javarebel.PolopolyJRebelPlugin</JavaRebel-Plugin>
+                        </manifestEntries> 
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

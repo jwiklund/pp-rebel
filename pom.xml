@@ -16,6 +16,7 @@
     <module>lesscss-engine</module>
     <module>lesscss-servlet</module>
     <module>pp-dev</module>
+    <module>pp-rebel</module>
   </modules>
 </project>
 
