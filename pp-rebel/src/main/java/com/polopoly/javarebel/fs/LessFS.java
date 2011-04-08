@@ -12,12 +12,11 @@ import com.asual.lesscss.LessException;
 public class LessFS implements FS {
 
     File base;
-    LessEngine engine;
+    static LessEngine engine = new LessEngine();
 
     public LessFS(File base)
     {
         this.base = base;
-        this.engine = new LessEngine();
     }
 
     public Object[] getFileInfo(String path) throws IOException
@@ -40,7 +39,7 @@ public class LessFS implements FS {
         long lastModified = file.lastModified();
         long size;
         try {
-            size = engine.compile(file).length();
+            size = compile(file).length();
             return new Object[] { dir, name, isDirectory, lastModified, size } ;
         } catch (LessException e) {
             LoggerFactory.getInstance().error(e);
@@ -62,11 +61,16 @@ public class LessFS implements FS {
             return false;
         }
         try {
-            out.write(engine.compile(file).getBytes("UTF-8"));
+            out.write(compile(file).getBytes("UTF-8"));
             return true;
         } catch (LessException e) {
             LoggerFactory.getInstance().error(e);
             throw new IOException(e);
         }
+    }
+
+    private String compile(File file) throws LessException, IOException
+    {
+        return engine.compile(file);
     }
 }
