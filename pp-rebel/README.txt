@@ -5,3 +5,4 @@ Install:
   * Add to CATALINA_OPTS
 	-DPP_HOME=$HOME_OF_POLOPOLY_INSTALLATION
 	-Drebel.plugins=$PATH_TO_REBEL_JAR
+	-Drebel.pp-rebel=true
