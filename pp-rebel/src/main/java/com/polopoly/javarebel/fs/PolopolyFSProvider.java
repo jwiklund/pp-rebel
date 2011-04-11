@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.bind.JAXBException;
 
@@ -18,6 +20,7 @@ public class PolopolyFSProvider implements FSProvider {
     long lastChange = -1;
     File configFile;
     Configuration config;
+    Map<String, FS> cache = new ConcurrentHashMap<String, FS>();
     
     public PolopolyFSProvider()
     {
@@ -39,7 +42,12 @@ public class PolopolyFSProvider implements FSProvider {
         if (item == null) {
             return null;
         }
-        return createFS(item);
+        FS fs = cache.get(externalid);
+        if (fs == null) {
+            fs = createFS(item);
+            cache.put(externalid, fs);
+        }
+        return fs;
     }
 
     private FS createFS(List<Item> item)
@@ -64,6 +72,7 @@ public class PolopolyFSProvider implements FSProvider {
             try {
                 config = Configuration.parse(new FileReader(configFile));
                 lastChange = currentLastModified;
+                cache.clear();
             } catch (FileNotFoundException e) {
                 LoggerFactory.getInstance().error(e);
             } catch (JAXBException e) {

@@ -7,7 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.NativeArray;
@@ -17,10 +19,11 @@ import org.mozilla.javascript.tools.shell.Global;
 public class JSFS implements FS {
 
     File pack;
-    JSConfig config = new JSConfig();
+    JSConfig config;
     
     public JSFS(File pack)
     {
+        this.config = new JSConfig(pack);
         this.pack = pack;
     }
 
@@ -32,6 +35,9 @@ public class JSFS implements FS {
         int index = path.lastIndexOf('/');
         String dir = index == -1 ? "/" : path.substring(0, index);
         String name = path.substring(index+1);
+        if (getFiles(name) == null) {
+            return null;
+        }
         boolean isDirectory = false;
         long lastModified = getLastModified(path);
         long size = getFileContent(path).length;
@@ -62,9 +68,13 @@ public class JSFS implements FS {
     
     private byte[] getFileContent(String path) throws IOException
     {
+        File[] files = getFiles(path);
+        if (files == null) {
+            return null;
+        }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         boolean first = true;
-        for (File file : getFiles(path)) {
+        for (File file : files) {
             if (first) {
                 first = false;
             } else {
@@ -77,24 +87,28 @@ public class JSFS implements FS {
 
     public File[] getFiles(String path) throws IOException 
     {
-        return config.getFiles(pack, path);
+        return config.getFiles(path);
     }
 
     private static class JSConfig {
         private Scriptable scope;
+        private File pack;
+        private Map<String, File[]> cache = new HashMap<String, File[]>();
+        private long lastAccess = -1;
 
-        public JSConfig() {
+        public JSConfig(File pack) {
+            this.pack = pack;
             Context cx = Context.enter();
             cx.setOptimizationLevel(9);
             Global global = new Global();
-            global.init(cx);          
+            global.init(cx);
             scope = cx.initStandardObjects(global);
             Context.exit();
         }
 
-        public File[] getFiles(File source, String uri) throws IOException
+        public File[] getFiles(String uri) throws IOException
         {
-            String absolute = source.getParentFile().getAbsolutePath();
+            String absolute = pack.getParentFile().getAbsolutePath();
             int start = 0;
             if (uri.startsWith("/")) { 
                 start = 1;
@@ -104,21 +118,32 @@ public class JSFS implements FS {
                 end = end - 3;
             }
             String name = uri.substring(start, end);
-            List<String> files = new ArrayList<String>();
-            synchronized (this) {
-                Context cx = Context.enter();
-                cx.evaluateReader(scope, new FileReader(source), source.getName(), 0, null);
-                NativeArray deps = (NativeArray) cx.evaluateString(scope, "deps['"+name+"']", "getFiles(" + name + ")", 1, null);
-                for (int i = 0 ; i < deps.getLength() ; i++) {
-                    files.add((String) deps.get(i, scope));
+            return files(absolute, name);
+        }
+
+        private synchronized File[] files(String absolute, String name) throws IOException
+        {
+            if (pack.lastModified() <= lastAccess) {
+                return cache.get(name);
+            }
+            cache.clear();
+            lastAccess = pack.lastModified();
+            Context cx = Context.enter();
+            cx.evaluateReader(scope, new FileReader(pack), pack.getName(), 0, null);
+            NativeArray names = (NativeArray) cx.evaluateString(scope, "var names = [] ; for (name in deps) { names.push(name); } ; names", "getNames(" + name + ")", 1, null);
+            for (int i = 0 ; i < names.getLength() ; i++) {
+                if (names.get(i, scope) instanceof String) {
+                    String packName = (String) names.get(i, scope);
+                    NativeArray deps = (NativeArray) cx.evaluateString(scope, "deps['"+packName+"']", "getFiles(" + packName + ")", 1, null);
+                    List<File> files = new ArrayList<File>();
+                    for (int j = 0 ; j < deps.getLength() ; j++) {
+                        files.add(new File(absolute + "/" + (String) deps.get(j, scope) + ".js"));
+                    }
+                    cache.put(packName, files.toArray(new File[0]));
                 }
-                Context.exit();
             }
-            File[] result = new File[files.size()];
-            for (int i = 0 ; i < result.length ; i++) {
-                result[i] = new File(absolute + "/" + files.get(i) + ".js");
-            }
-            return result;
+            Context.exit();
+            return cache.get(name);
         }
     }
 }
