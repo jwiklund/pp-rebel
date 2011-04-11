@@ -1,6 +1,7 @@
 Build:
-	Use assembly:single to get a a single jar
-TODO:
-	Read a certain file from disk given a certain content
-	Find files and content	
-	Load processed files (such as concatenated js and less)
+	Use package assembly:single to get a a single jar
+Install:
+  * Copy pp-rebel.xml to $HOME_OF_POLOPOLY_INSTALLATION
+  * Add to CATALINA_OPTS
+	-DPP_HOME=$HOME_OF_POLOPOLY_INSTALLATION
+	-Drebel.plugins=$PATH_TO_REBEL_JAR
