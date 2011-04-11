@@ -71,6 +71,6 @@ public class LessFS implements FS {
 
     private String compile(File file) throws LessException, IOException
     {
-        return engine.compile(file);
+        return engine.compile(file).replaceAll("\\\\n", "\n");
     }
 }
