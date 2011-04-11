@@ -1,0 +1,14 @@
+<pp-rebel>
+  <content externalid="p.InteractivePreview">
+    <js>assemblies/interactive-preview/src/main/javascript/package.js</js>
+    <less>assemblies/interactive-preview/src/main/lesscss</less>
+    <dir>assemblies/interactive-preview/src/main/resources</dir>
+  </content>
+  <content externalid="plugins.com.polopoly.extensions.tablet.files">
+    <less>extensions/tablet/src/main/lesscss</less>
+  </content>
+  <content externalid="plugins.com.polopoly.extensions.tablet-example.files">
+    <less>extensions/tablet-example/src/main/lesscss</less>
+    <dir>extensions/tablet-example/src/main/contentfiles</dir>
+  </content>
+</pp-rebel>
