@@ -110,6 +110,11 @@
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
+          <archive>
+            <manifestEntries>
+              <JavaRebel-Plugin>com.polopoly.javarebel.PolopolyJRebelPlugin</JavaRebel-Plugin>
+            </manifestEntries>
+          </archive>
         </configuration>
       </plugin>
     </plugins>
