@@ -1,6 +1,8 @@
 Polopoly Java Rebel plugin to allow hotswap of content files.
 
 Build:
+  git submodule init
+  git submodule fetch
   mvn clean install
   mvn assembly:single -f pp-rebel/pom.xml
 
