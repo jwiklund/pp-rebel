@@ -1,8 +1,10 @@
 Build:
-	Use package assembly:single to get a a single jar
+  mvn clean install
+  mvn assembly:single -f pp-rebel/pom.xml
+
 Install:
   * Copy pp-rebel.xml to $HOME_OF_POLOPOLY_INSTALLATION
   * Add to CATALINA_OPTS
 	-DPP_HOME=$HOME_OF_POLOPOLY_INSTALLATION
-	-Drebel.plugins=$PATH_TO_REBEL_JAR
+	-Drebel.plugins=$THIS_PATH/pp-rebel/target/pp-rebel-1.0-SNAPSHOT-jar-with-dependencies.jar
 	-Drebel.pp-rebel=true
