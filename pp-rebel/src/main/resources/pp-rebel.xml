@@ -6,6 +6,7 @@
   </content>
   <content externalid="plugins.com.polopoly.extensions.tablet.files">
     <less>extensions/tablet/src/main/lesscss</less>
+    <dir>extensions/tablet/src/main/contentfiles</dir>
   </content>
   <content externalid="plugins.com.polopoly.extensions.tablet-example.files">
     <less>extensions/tablet-example/src/main/lesscss</less>
