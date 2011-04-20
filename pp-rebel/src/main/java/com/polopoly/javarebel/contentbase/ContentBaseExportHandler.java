@@ -24,7 +24,19 @@ public class ContentBaseExportHandler {
         }
         return fs.exportFile(path, out);
     }
-    
+
+    public static Object[] fileInfoHandler(String externalid, String path) throws IOException
+    {
+        if (externalid == null) {
+            return null;
+        }
+        FS fs = provider.getFS(externalid);
+        if (fs == null) {
+            return null;
+        }
+        return fs.getFileInfo(path);
+    }
+
     /*
      * Output
      * Mapping int[] (+ => result, - => left + 1)
