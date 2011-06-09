@@ -54,6 +54,12 @@ public class JSFS implements FS {
 
     public boolean exportFile(String path, OutputStream out) throws IOException
     {
+        if (targetImplicitBase != null) {
+            if (!path.startsWith(targetImplicitBase)) {
+                return false;
+            }
+            path = path.substring(targetImplicitBase.length());
+        }
         byte[] file = getFileContent(path);
         if (file == null) {
             return false;
