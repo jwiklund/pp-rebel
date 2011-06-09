@@ -36,7 +36,7 @@ class JSItem implements BaseItem {
 
     public String type()
     {
-        return "css";
+        return "js";
     }
     public String path()
     {

@@ -34,7 +34,6 @@ public class PolopolyJRebelPlugin implements Plugin {
    * Set up the integration (register CBPs)
    */
   public void preinit() {
-
     // Register the CBP
     Integration i = IntegrationFactory.getInstance();
     ClassLoader cl = PolopolyJRebelPlugin.class.getClassLoader();
@@ -71,7 +70,7 @@ public class PolopolyJRebelPlugin implements Plugin {
   }
 
   public boolean checkDependencies(ClassLoader classLoader, ClassResourceSource classResourceSource) {
-    return true ; //classResourceSource.getClassResource("com.polopoly.cm.client.impl.service2client.ContentBase") != null;
+    return classResourceSource.getClassResource("com.polopoly.cm.client.impl.service2client.ContentBase") != null;
   }
 
   public String getId() {

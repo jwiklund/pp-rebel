@@ -37,7 +37,7 @@ class LessItem implements BaseItem
 
     public String type()
     {
-        return "css";
+        return "less";
     }
     public String path()
     {

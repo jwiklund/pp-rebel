@@ -29,9 +29,6 @@ public class StaticFileFilterProcessor extends JavassistClassBytecodeProcessor {
         if (!cfg.isManagedClass(cl, ctClass.getName(), rs)) {
             return;
         }
-        if (Modifier.isAbstract(ctClass.getModifiers())) {
-            return ;
-        }
         if (!isFilter(ctClass)) {
             return ;
         }
@@ -70,9 +67,6 @@ public class StaticFileFilterProcessor extends JavassistClassBytecodeProcessor {
             if ("javax.servlet.Filter".equals(intrf.getName())) {
                 return true;
             }
-        }
-        if (ctClass.getSuperclass() != null) {
-            return isFilter(ctClass.getSuperclass()) && Modifier.isAbstract(ctClass.getSuperclass().getModifiers());
         }
         return false;
     }

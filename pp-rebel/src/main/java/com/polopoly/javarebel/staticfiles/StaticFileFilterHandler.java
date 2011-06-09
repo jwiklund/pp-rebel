@@ -20,6 +20,6 @@ public class StaticFileFilterHandler {
         if (fs == null) {
             return false;
         }
-        return fs.exportFile(((HttpServletRequest) request).getRequestURI(), response.getOutputStream());
+        return fs.exportFile(((HttpServletRequest) request).getRequestURI(), new LazyOutputStream(response));
     }
 }

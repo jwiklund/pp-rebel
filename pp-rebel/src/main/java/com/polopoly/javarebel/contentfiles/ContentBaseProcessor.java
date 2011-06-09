@@ -25,14 +25,14 @@ public class ContentBaseProcessor extends JavassistClassBytecodeProcessor {
             CtMethod exportMethod = ctClass.getDeclaredMethod("exportFile");
             exportMethod.insertBefore(
                         "{" +
-                        "  if (com.polopoly.javarebel.contentbase.ContentBaseExportHandler.exportFileHandled($0.generated$getExternalId(), $1, $2)) {" +
+                        "  if (com.polopoly.javarebel.contentfiles.ContentBaseExportHandler.exportFileHandled($0.generated$getExternalId(), $1, $2)) {" +
                         "    return;" +
                         "  }" +
                         "}");
             CtMethod infoMethod = ctClass.getDeclaredMethod("getFileInfo");
             infoMethod.insertBefore(
                         "{" +
-                        "  Object[] handled = com.polopoly.javarebel.contentbase.ContentBaseExportHandler.fileInfoHandler($0.generated$getExternalId(), $1);" +
+                        "  Object[] handled = com.polopoly.javarebel.contentfiles.ContentBaseExportHandler.fileInfoHandler($0.generated$getExternalId(), $1);" +
                         "  if (handled != null) {" +
                         "     String dir = (String) handled[0];" +
                         "     String name = (String) handled[1];" +
@@ -47,7 +47,7 @@ public class ContentBaseProcessor extends JavassistClassBytecodeProcessor {
             CtMethod fixedInfosMethod = new CtMethod(infosMethod.getReturnType(), "getFileInfos", infosMethod.getParameterTypes(), ctClass);
             fixedInfosMethod.setBody(
                         "{" +
-                        "  Object[] handled = com.polopoly.javarebel.contentbase.ContentBaseExportHandler.fileInfosHandler($0.generated$getExternalId(), $1);" +
+                        "  Object[] handled = com.polopoly.javarebel.contentfiles.ContentBaseExportHandler.fileInfosHandler($0.generated$getExternalId(), $1);" +
                         "  if (handled == null) {" +
                         "    return $0.original$getFileInfos($1);" +
                         "  } else {" +
