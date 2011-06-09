@@ -23,6 +23,7 @@ public class ConfigurationProvider {
     boolean exists = true;
     File configFile;
     Cfg cfg = new Cfg(null, -1);
+    long lastCheck = -1;
     
     public ConfigurationProvider()
     {
@@ -49,6 +50,12 @@ public class ConfigurationProvider {
         if (configFile == null) {
             return null;
         }
+        if ((System.currentTimeMillis() - lastCheck) < 1000) {
+            if (cfg.configuration != null) {
+                return cfg;
+            }
+        }
+        lastCheck = System.currentTimeMillis();
         if ((!configFile.exists() || configFile.isDirectory()) && exists) {
             LoggerFactory.getInstance().echo("Error, " + configFile.getAbsolutePath() + " does not exist");
             exists = false;
