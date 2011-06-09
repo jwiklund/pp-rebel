@@ -22,7 +22,8 @@ import org.zeroturnaround.javarebel.Integration;
 import org.zeroturnaround.javarebel.IntegrationFactory;
 import org.zeroturnaround.javarebel.Plugin;
 
-import com.polopoly.javarebel.contentbase.ContentBaseProcessor;
+import com.polopoly.javarebel.contentfiles.ContentBaseProcessor;
+import com.polopoly.javarebel.staticfiles.StaticFileFilterProcessor;
 
 /**
  * A plugin that loads content files from disk (hopefully)
@@ -38,6 +39,7 @@ public class PolopolyJRebelPlugin implements Plugin {
     Integration i = IntegrationFactory.getInstance();
     ClassLoader cl = PolopolyJRebelPlugin.class.getClassLoader();
     i.addIntegrationProcessor(cl, "com.polopoly.cm.client.impl.service2client.ContentBase", new ContentBaseProcessor());
+    i.addIntegrationProcessor(cl, new StaticFileFilterProcessor());
 //    
 //    // Set up the reload listener
 //    ReloaderFactory.getInstance().addClassReloadListener(
@@ -69,7 +71,7 @@ public class PolopolyJRebelPlugin implements Plugin {
   }
 
   public boolean checkDependencies(ClassLoader classLoader, ClassResourceSource classResourceSource) {
-    return classResourceSource.getClassResource("com.polopoly.cm.client.impl.service2client.ContentBase") != null;
+    return true ; //classResourceSource.getClassResource("com.polopoly.cm.client.impl.service2client.ContentBase") != null;
   }
 
   public String getId() {

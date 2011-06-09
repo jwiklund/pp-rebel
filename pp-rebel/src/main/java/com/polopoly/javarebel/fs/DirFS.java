@@ -8,14 +8,23 @@ import java.io.OutputStream;
 
 public class DirFS implements FS {
     File base;
-    public DirFS(File base) {
+    String targetImplicitBase;
+
+    public DirFS(File base, String targetImplicitBase) {
         this.base = base;
+        this.targetImplicitBase = targetImplicitBase;
     }
 
     public boolean exportFile(String path, OutputStream out) throws IOException
     {
         if (base == null) {
             return false;
+        }
+        if (targetImplicitBase != null) {
+            if (!path.startsWith(targetImplicitBase)) {
+                return false;
+            }
+            path = path.substring(targetImplicitBase.length());
         }
         File file = new File(base.getAbsolutePath() + "/" + path);
         if (!file.exists() || !file.isFile()) {
@@ -34,6 +43,12 @@ public class DirFS implements FS {
     {
         if (base == null) {
             return null;
+        }
+        if (targetImplicitBase != null) {
+            if (!path.startsWith(targetImplicitBase)) {
+                return null;
+            }
+            path = path.substring(targetImplicitBase.length());
         }
         File file = new File(base.getAbsoluteFile() + "/" + path);
         if (!file.exists()) {

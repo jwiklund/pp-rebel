@@ -3,5 +3,6 @@ package com.polopoly.javarebel.fs;
 
 public interface FSProvider {
 
-    public FS getFS(String externalid);
+    public FS getContentFS(String externalid);
+    public FS getFilterFS(String filtername);
 }

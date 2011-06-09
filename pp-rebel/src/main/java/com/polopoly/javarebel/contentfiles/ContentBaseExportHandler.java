@@ -1,4 +1,4 @@
-package com.polopoly.javarebel.contentbase;
+package com.polopoly.javarebel.contentfiles;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -6,19 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.polopoly.javarebel.fs.FS;
-import com.polopoly.javarebel.fs.FSProvider;
 import com.polopoly.javarebel.fs.PolopolyFSProvider;
 
 public class ContentBaseExportHandler {
-
-    public static FSProvider provider = new PolopolyFSProvider();
     
     public static boolean exportFileHandled(String externalid, String path, OutputStream out) throws IOException
     {
         if (externalid == null) {
             return false;
         }
-        FS fs = provider.getFS(externalid);
+        FS fs = PolopolyFSProvider.instance().getContentFS(externalid);
         if (fs == null) {
             return false;
         }
@@ -30,7 +27,7 @@ public class ContentBaseExportHandler {
         if (externalid == null) {
             return null;
         }
-        FS fs = provider.getFS(externalid);
+        FS fs = PolopolyFSProvider.instance().getContentFS(externalid);
         if (fs == null) {
             return null;
         }
@@ -48,7 +45,7 @@ public class ContentBaseExportHandler {
         if (externalid == null) {
             return null;
         }
-        FS fs = provider.getFS(externalid);
+        FS fs = PolopolyFSProvider.instance().getContentFS(externalid);
         if (fs == null) {
             return null;
         }

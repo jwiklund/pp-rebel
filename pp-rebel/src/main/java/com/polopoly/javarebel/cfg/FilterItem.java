@@ -27,11 +27,6 @@ class FilterItem {
         @XmlElementRef(name = "css", type = LessItem.class)
     })
     public List<BaseItem> items = new ArrayList<BaseItem>();
-    
-    @XmlAttribute(required = true, name="class")
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlSchemaType(name = "NCName")
-    public String className;
 
     @XmlAttribute(required = true, name="name")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
@@ -41,10 +36,9 @@ class FilterItem {
     public FilterItem() {
         items = new ArrayList<BaseItem>();
     }
-    public FilterItem(String className, String filterName, BaseItem item)
+    public FilterItem(String filterName, BaseItem item)
     {
         this();
-        this.className = className;
         this.filterName = filterName;
         items.add(item);
     }
@@ -54,7 +48,6 @@ class FilterItem {
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((className == null) ? 0 : className.hashCode());
         result = prime * result + ((filterName == null) ? 0 : filterName.hashCode());
         result = prime * result + ((items == null) ? 0 : items.hashCode());
         return result;
@@ -70,11 +63,6 @@ class FilterItem {
         if (getClass() != obj.getClass())
             return false;
         FilterItem other = (FilterItem) obj;
-        if (className == null) {
-            if (other.className != null)
-                return false;
-        } else if (!className.equals(other.className))
-            return false;
         if (filterName == null) {
             if (other.filterName != null)
                 return false;
@@ -91,6 +79,6 @@ class FilterItem {
     @Override
     public String toString()
     {
-        return "FilterItem [items=" + items + ", className=" + className + ", filterName=" + filterName + "]";
+        return "FilterItem [items=" + items + ", filterName=" + filterName + "]";
     }
 }

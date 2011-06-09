@@ -17,6 +17,7 @@ public class JettyTestFilter {
         Context context = new Context();
         context.addServlet(JettyTestFilterServlet.class, "/*");
         context.addFilter(JettyTestFilterFilter.class, "/*", Handler.DEFAULT);
+        context.addFilter(JettyTestLeaf.class, "/*", Handler.DEFAULT);
         Server server = new Server(9090);
         server.addHandler(context);
         server.start();

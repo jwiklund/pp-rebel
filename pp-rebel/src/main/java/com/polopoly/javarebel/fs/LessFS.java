@@ -12,11 +12,13 @@ import com.asual.lesscss.LessException;
 public class LessFS implements FS {
 
     File base;
+    String targetImplicitBase;
     static LessEngine engine = new LessEngine();
 
-    public LessFS(File base)
+    public LessFS(File base, String targetImplicitBase)
     {
         this.base = base;
+        this.targetImplicitBase = targetImplicitBase;
     }
 
     public Object[] getFileInfo(String path) throws IOException
@@ -26,6 +28,12 @@ public class LessFS implements FS {
         }
         if (!path.endsWith(".css")) {
             return null;
+        }
+        if (targetImplicitBase != null) {
+            if (!path.startsWith(targetImplicitBase)) {
+                return null;
+            }
+            path = path.substring(targetImplicitBase.length());
         }
         String less = path.substring(0, path.length() - 3) + "less";
         File file = new File(base.getAbsolutePath() + "/" + less);
@@ -54,6 +62,12 @@ public class LessFS implements FS {
         }
         if (!path.endsWith(".css")) {
             return false;
+        }
+        if (targetImplicitBase != null) {
+            if (!path.startsWith(targetImplicitBase)) {
+                return false;
+            }
+            path = path.substring(targetImplicitBase.length());
         }
         String less = path.substring(0, path.length() - 3) + "less";
         File file = new File(base.getAbsolutePath() + "/" + less);

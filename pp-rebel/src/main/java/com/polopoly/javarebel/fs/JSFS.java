@@ -20,10 +20,12 @@ public class JSFS implements FS {
 
     File pack;
     JSConfig config;
+    private final String targetImplicitBase;
     
-    public JSFS(File pack)
+    public JSFS(File pack, String targetImplicitBase)
     {
         this.config = new JSConfig(pack);
+        this.targetImplicitBase = targetImplicitBase;
         this.pack = pack;
     }
 
@@ -31,6 +33,12 @@ public class JSFS implements FS {
     {
         if (path == null) {
             return null;
+        }
+        if (targetImplicitBase != null) {
+            if (!path.startsWith(targetImplicitBase)) {
+                return null;
+            }
+            path = path.substring(targetImplicitBase.length());
         }
         int index = path.lastIndexOf('/');
         String dir = index == -1 ? "/" : path.substring(0, index);

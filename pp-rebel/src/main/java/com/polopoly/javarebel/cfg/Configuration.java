@@ -71,7 +71,7 @@ public class Configuration {
     @XmlTransient
     private Map<String, List<Item>> contentIndex;
     @XmlTransient
-    private List<Filter> filterIndex;
+    private Map<String, List<Item>> filterIndex;
 
     public static Configuration parse(Reader reader) throws JAXBException
     {
@@ -83,7 +83,7 @@ public class Configuration {
     private void index()
     {
         contentIndex = new HashMap<String, List<Item>>();
-        filterIndex = new ArrayList<Filter>();
+        filterIndex = new HashMap<String, List<Item>>();
         for (Object item : content) {
             if (item instanceof ContentItem) {
                 List<Item> result = new ArrayList<Item>();
@@ -97,18 +97,23 @@ public class Configuration {
                 for (BaseItem el : filter.items) {
                     result.add(new Item(el.type(), el.path(), el.value()));
                 }
-                filterIndex.add(new Filter(filter.className, filter.filterName, result));
+                filterIndex.put(filter.filterName, result);
             } else {
                 throw new RuntimeException("Unexpected type " + item.getClass());
             }
         }
     }
 
-    public List<Item> get(String externalid)
+    public List<Item> getContentFiles(String externalid)
     {
         return contentIndex.get(externalid);
     }
 
+    public List<Item> getFilterFiles(String filtername)
+    {
+        return filterIndex.get(filtername);
+    }
+    
     @Override
     public int hashCode()
     {

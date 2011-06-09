@@ -1,4 +1,4 @@
-package com.polopoly.javarebel.contentbase;
+package com.polopoly.javarebel.contentfiles;
 
 import org.zeroturnaround.bundled.javassist.ClassPool;
 import org.zeroturnaround.bundled.javassist.CtClass;

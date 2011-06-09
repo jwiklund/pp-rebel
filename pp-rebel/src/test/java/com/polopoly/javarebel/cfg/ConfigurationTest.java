@@ -36,7 +36,7 @@ public class ConfigurationTest {
         list.add(new Object[] { "<pp-rebel><content externalid=\"example\"><dir path=\"/path\">value</dir></content></pp-rebel>",
                                 new Configuration(Arrays.asList(new ContentItem("example", new DirItem("/path", "value")))) });
         list.add(new Object[] { "<pp-rebel><filter class=\"some.class\" name=\"some filter\"><dir>aha</dir></filter></pp-rebel>",
-                                new Configuration(Arrays.asList(new FilterItem("some.class", "some filter", new DirItem("aha")))) });
+                                new Configuration(Arrays.asList(new FilterItem("some filter", new DirItem("aha")))) });
         return list;
     }
     

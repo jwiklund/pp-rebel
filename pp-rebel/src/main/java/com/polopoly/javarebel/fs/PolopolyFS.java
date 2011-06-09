@@ -22,12 +22,13 @@ public class PolopolyFS implements FS {
         }
         for (Item item : items) {
             File path = new File(pp + "/" + item.value);
+            String targetImplicitDir = item.path;
             if ("dir".equals(item.type)) {
-                systems.add(new DirFS(path));
+                systems.add(new DirFS(path, targetImplicitDir));
             } else if ("less".equals(item.type)) {
-                systems.add(new LessFS(path));
+                systems.add(new LessFS(path, targetImplicitDir));
             } else if ("js".equals(item.type)) {
-                systems.add(new JSFS(path));
+                systems.add(new JSFS(path, targetImplicitDir));
             } else {
                 LoggerFactory.getInstance().echo("pp-rebel unknown configuration type '" + item.type + "' is ignored");
             }

@@ -1,52 +1,63 @@
 package com.polopoly.javarebel.fs;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.xml.bind.JAXBException;
-
-import org.zeroturnaround.javarebel.LoggerFactory;
-
 import com.polopoly.javarebel.cfg.Configuration;
 import com.polopoly.javarebel.cfg.Configuration.Item;
+import com.polopoly.javarebel.cfg.ConfigurationProvider;
+import com.polopoly.javarebel.cfg.ConfigurationProvider.Cfg;
 
 public class PolopolyFSProvider implements FSProvider {
 
-    boolean exists = true;
-    long lastChange = -1;
-    File configFile;
-    Configuration config;
-    Map<String, FS> cache = new ConcurrentHashMap<String, FS>();
-    
-    public PolopolyFSProvider()
-    {
-        String polopoly = FSUtil.getPolopoly();
-        if (polopoly == null) {
-            LoggerFactory.getInstance().echo("WARNING: No PP_HOME environment defined, Polopoly Content Rebel Plugin will be disabled");
-            return;
-        }
-        configFile = new File(polopoly + "/pp-rebel.xml");
+    public static PolopolyFSProvider instance() {
+        return Instance.instance;
     }
-    
-    public FS getFS(String externalid)
+
+    private static class Instance {
+        public static PolopolyFSProvider instance = new PolopolyFSProvider();
+    }
+
+    Map<String, FS> filterCache = new ConcurrentHashMap<String, FS>();
+    Map<String, FS> contentCache = new ConcurrentHashMap<String, FS>();
+    long lastChange = -1;
+
+    public FS getContentFS(String externalid)
     {
         Configuration config = getConfiguration();
         if (config == null) {
             return null;
         }
-        List<Configuration.Item> item = config.get(externalid);
+        FS fs = contentCache.get(externalid);
+        if (fs != null) {
+            return fs;
+        }
+        List<Configuration.Item> item = config.getContentFiles(externalid);
         if (item == null) {
             return null;
         }
-        FS fs = cache.get(externalid);
-        if (fs == null) {
-            fs = createFS(item);
-            cache.put(externalid, fs);
+        fs = createFS(item);
+        contentCache.put(externalid, fs);
+        return fs;
+    }
+
+    public FS getFilterFS(String filtername)
+    {
+        Configuration config = getConfiguration();
+        if (config == null) {
+            return null;
         }
+        FS fs = filterCache.get(filtername);
+        if (fs != null) {
+            return fs;
+        }
+        List<Configuration.Item> item = config.getFilterFiles(filtername);
+        if (item == null) {
+            return null;
+        }
+        fs = createFS(item);
+        filterCache.put(filtername, fs);
         return fs;
     }
 
@@ -55,31 +66,13 @@ public class PolopolyFSProvider implements FSProvider {
         return new PolopolyFS(item);
     }
 
-    private synchronized Configuration getConfiguration()
+    private Configuration getConfiguration()
     {
-        if (configFile == null) {
-            return null;
+        Cfg cfg = ConfigurationProvider.instance().getConfiguration();
+        if (cfg.lastModified > lastChange) {
+            filterCache.clear();
+            contentCache.clear();
         }
-        if ((!configFile.exists() || configFile.isDirectory()) && exists) {
-            LoggerFactory.getInstance().echo("Error, " + configFile.getAbsolutePath() + " does not exist");
-            exists = false;
-        }
-        if (!exists) {
-            return config;
-        }
-        long currentLastModified = configFile.lastModified();
-        if (currentLastModified > lastChange) {
-            try {
-                config = Configuration.parse(new FileReader(configFile));
-                lastChange = currentLastModified;
-                cache.clear();
-            } catch (FileNotFoundException e) {
-                LoggerFactory.getInstance().error(e);
-            } catch (JAXBException e) {
-                LoggerFactory.getInstance().error(e);
-                lastChange = currentLastModified;
-            }
-        }
-        return config;
+        return cfg.configuration;
     }
 }
