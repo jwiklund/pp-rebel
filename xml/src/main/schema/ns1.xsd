@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.polopoly.com/polopoly/cm/app/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://www.polopoly.com/polopoly/cm/app/xml" xmlns:ns2="http://www.polopoly.com/polopoly/cm/xmlio">
+  <xs:import namespace="http://www.polopoly.com/polopoly/cm/xmlio" schemaLocation="schema.xsd"/>
+  <xs:import namespace="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="xsi.xsd"/>
+  <xs:element name="template-definition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="ns1:output-template"/>
+        <xs:element maxOccurs="unbounded" ref="ns1:input-template"/>
+      </xs:sequence>
+      <xs:attribute name="version" use="required" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="output-template">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns1:content-xml"/>
+      </xs:sequence>
+      <xs:attribute name="input-template" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="content-xml">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns1:component"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="component">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="group" use="required"/>
+          <xs:attribute name="name" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="input-template">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="ns1:policy"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="ns1:editor"/>
+          <xs:element ref="ns1:viewer"/>
+        </xs:choice>
+        <xs:choice>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="ns1:field"/>
+          <xs:sequence>
+            <xs:element ref="ns1:type"/>
+            <xs:element maxOccurs="unbounded" ref="ns1:param"/>
+            <xs:element maxOccurs="unbounded" ref="ns1:content-list"/>
+          </xs:sequence>
+        </xs:choice>
+        <xs:element minOccurs="0" ref="ns1:layout"/>
+        <xs:element minOccurs="0" ref="ns1:output-templates"/>
+      </xs:sequence>
+      <xs:attribute name="label"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="policy" type="xs:string"/>
+  <xs:element name="editor">
+    <xs:complexType mixed="true">
+      <xs:attribute name="contextName" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="viewer">
+    <xs:complexType mixed="true">
+      <xs:attribute name="contextName" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="type" type="xs:NCName"/>
+  <xs:element name="content-list">
+    <xs:complexType>
+      <xs:attribute name="input-template" use="required"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="output-templates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns1:id"/>
+      </xs:sequence>
+      <xs:attribute name="mode" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="id" type="xs:NCName"/>
+  <xs:element name="field">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="ns1:field"/>
+        <xs:element ref="ns1:param"/>
+        <xs:element ref="ns1:help"/>
+        <xs:element ref="ns1:idparam"/>
+        <xs:element ref="ns1:idparam-list"/>
+      </xs:choice>
+      <xs:attribute name="input-template" use="required" type="xs:NCName"/>
+      <xs:attribute name="label"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="help" type="xs:string"/>
+  <xs:element name="idparam">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="ns1:major"/>
+        <xs:choice>
+          <xs:element ref="ns1:externalid"/>
+          <xs:element ref="ns1:minor"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="major" type="xs:NCName"/>
+  <xs:element name="minor" type="xs:integer"/>
+  <xs:element name="idparam-list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="ns1:contentid"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contentid">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ns1:externalid"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="param">
+    <xs:complexType mixed="true">
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="layout">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="ns1:field"/>
+        <xs:element ref="ns1:layout"/>
+        <xs:element ref="ns1:param"/>
+      </xs:choice>
+      <xs:attribute name="input-template" use="required" type="xs:NCName"/>
+      <xs:attribute name="label"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="externalid" type="xs:NCName"/>
+</xs:schema>

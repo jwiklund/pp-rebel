@@ -78,6 +78,7 @@ public class ContentBaseProcessor extends JavassistClassBytecodeProcessor {
                         "  }" +
                         "}");
             ctClass.addMethod(fixedInfosMethod);
+            LoggerFactory.getInstance().echo("pp-rebel: patched ContentBase to load from FS");
         } catch (NotFoundException e) {
             LoggerFactory.getInstance().error(e);
         }

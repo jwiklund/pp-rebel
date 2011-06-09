@@ -1,4 +1,4 @@
-package com.polopoly.javarebel;
+package com.polopoly.javarebel.cfg;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,9 +13,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.polopoly.javarebel.cfg.Configuration;
-import com.polopoly.javarebel.cfg.ConfigurationItem;
-
 @RunWith(Parameterized.class)
 public class ConfigurationTest {
 
@@ -25,17 +22,21 @@ public class ConfigurationTest {
     @Parameters
     public static List<Object[]> parameters() {
         List<Object[]> list = new ArrayList<Object[]>();
-        list.add(new Object[] { "<pp-rebel></pp-rebel>", new Configuration(Collections.<ConfigurationItem>emptyList()) });
+        list.add(new Object[] { "<pp-rebel></pp-rebel>", new Configuration(Collections.emptyList()) });
         list.add(new Object[] { "<pp-rebel><content externalid=\"example\"></content></pp-rebel>",
-                                new Configuration(Arrays.asList(new ConfigurationItem("example"))) });
+                                new Configuration(Arrays.asList(new ContentItem("example"))) });
         list.add(new Object[] { "<pp-rebel><content externalid=\"example\"><dir>path</dir></content></pp-rebel>",
-                                new Configuration(Arrays.asList(new ConfigurationItem("example", "dir", "path"))) });
+                                new Configuration(Arrays.asList(new ContentItem("example", new DirItem("path")))) });
         list.add(new Object[] { "<pp-rebel><content externalid=\"example\"><js>path</js></content></pp-rebel>",
-                                new Configuration(Arrays.asList(new ConfigurationItem("example", "js", "path"))) });
+                                new Configuration(Arrays.asList(new ContentItem("example", new JSItem("path")))) });
         list.add(new Object[] { "<pp-rebel><content externalid=\"example1\"><dir>path1</dir></content>" +
                                           "<content externalid=\"example2\"><less>path2</less></content></pp-rebel>",
-                                new Configuration(Arrays.asList(new ConfigurationItem("example1", "dir", "path1"),
-                                                                new ConfigurationItem("example2", "less", "path2"))) });
+                                new Configuration(Arrays.asList(new ContentItem("example1", new DirItem("path1")),
+                                                                new ContentItem("example2", new LessItem("path2")))) });
+        list.add(new Object[] { "<pp-rebel><content externalid=\"example\"><dir path=\"/path\">value</dir></content></pp-rebel>",
+                                new Configuration(Arrays.asList(new ContentItem("example", new DirItem("/path", "value")))) });
+        list.add(new Object[] { "<pp-rebel><filter class=\"some.class\" name=\"some filter\"><dir>aha</dir></filter></pp-rebel>",
+                                new Configuration(Arrays.asList(new FilterItem("some.class", "some filter", new DirItem("aha")))) });
         return list;
     }
     

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="pp-rebel">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="dir"/>
+        <xs:element ref="css"/>
+        <xs:element ref="filter"/>
+        <xs:element ref="js"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="css">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="path"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="filter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="dir"/>
+      </xs:sequence>
+      <xs:attribute name="class"/>
+      <xs:attribute name="filterName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="js" type="xs:NCName"/>
+  <xs:element name="dir">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="path"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
