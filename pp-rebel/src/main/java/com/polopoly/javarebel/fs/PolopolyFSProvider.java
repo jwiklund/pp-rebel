@@ -72,6 +72,7 @@ public class PolopolyFSProvider implements FSProvider {
         if (cfg.lastModified > lastChange) {
             filterCache.clear();
             contentCache.clear();
+            lastChange = cfg.lastModified;
         }
         return cfg.configuration;
     }
