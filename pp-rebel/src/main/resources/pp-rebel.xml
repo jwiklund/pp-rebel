@@ -1,4 +1,13 @@
 <pp-rebel>
+  <!-- Polopoly Resources -->
+  <filter name="requestwatcherfilter">
+    <less path="/polopoly/stylesheets">assemblies/admin-gui-war/src/main/lesscss/stylesheets</less>
+    <js path="/polopoly">assemblies/admin-gui-war/src/main/javascript/package.js</js>
+  </filter>
+  <!-- Preview Resources -->
+  <filter name="previewrequiresgui">
+  </filter>
+  <!-- Content Files -->
   <content externalid="p.InteractivePreview">
     <js>assemblies/interactive-preview/src/main/javascript/package.js</js>
     <less>assemblies/interactive-preview/src/main/lesscss</less>
@@ -11,5 +20,11 @@
   <content externalid="plugins.com.polopoly.extensions.tablet-example.files">
     <less>extensions/tablet-example/src/main/lesscss</less>
     <dir>extensions/tablet-example/src/main/contentfiles</dir>
+  </content>
+  <content externalid="p.GuiLanguages">
+    <dir>dist/gui-languages</dir>
+  </content>
+  <content externalid="extra.GuiLanguages">
+    <dir>sites/greenfieldtimes-example/src/resources/content/gui-languages</dir>
   </content>
 </pp-rebel>
