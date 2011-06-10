@@ -22,10 +22,13 @@ import org.zeroturnaround.javarebel.Integration;
 import org.zeroturnaround.javarebel.IntegrationFactory;
 import org.zeroturnaround.javarebel.LoggerFactory;
 import org.zeroturnaround.javarebel.Plugin;
+import org.zeroturnaround.javarebel.ReloaderFactory;
 
 import com.polopoly.javarebel.cfg.Configuration;
 import com.polopoly.javarebel.cfg.ConfigurationProvider;
 import com.polopoly.javarebel.contentfiles.ContentBaseProcessor;
+import com.polopoly.javarebel.model.ModelDomainProcessor;
+import com.polopoly.javarebel.model.ModelReloadListener;
 import com.polopoly.javarebel.staticfiles.StaticFileFilterProcessor;
 
 public class PolopolyJRebelPlugin implements Plugin {
@@ -39,7 +42,14 @@ public class PolopolyJRebelPlugin implements Plugin {
     if (configuration.enableFilterProcessing() || configuration.hasFilterFiles()) {
         i.addIntegrationProcessor(cl, new StaticFileFilterProcessor());
     } else {
-        LoggerFactory.getInstance().echo("pp-rebel.INFO: Not patching servlet filters, static file processing will be disabled until restart");
+        LoggerFactory.getInstance().echo("pp-rebel.INFO: Not patching servlet filters (static file processing will be disabled until restart)");
+    }
+    i.addIntegrationProcessor(cl, "com.polopoly.cm.policymvc.PolicyCMServerModelDomain", new ModelDomainProcessor());
+    try {
+        ReloaderFactory.getInstance().addClassReloadListener(new ModelReloadListener());
+    } catch (ClassNotFoundException e) {
+        LoggerFactory.getInstance().echo("pp-rebel.ERROR failed to load class Policy (model reloading will be disabled)");
+        LoggerFactory.getInstance().errorEcho(e);
     }
 //    
 //    // Set up the reload listener
