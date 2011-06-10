@@ -20,8 +20,11 @@ package com.polopoly.javarebel;
 import org.zeroturnaround.javarebel.ClassResourceSource;
 import org.zeroturnaround.javarebel.Integration;
 import org.zeroturnaround.javarebel.IntegrationFactory;
+import org.zeroturnaround.javarebel.LoggerFactory;
 import org.zeroturnaround.javarebel.Plugin;
 
+import com.polopoly.javarebel.cfg.Configuration;
+import com.polopoly.javarebel.cfg.ConfigurationProvider;
 import com.polopoly.javarebel.contentfiles.ContentBaseProcessor;
 import com.polopoly.javarebel.staticfiles.StaticFileFilterProcessor;
 
@@ -38,7 +41,12 @@ public class PolopolyJRebelPlugin implements Plugin {
     Integration i = IntegrationFactory.getInstance();
     ClassLoader cl = PolopolyJRebelPlugin.class.getClassLoader();
     i.addIntegrationProcessor(cl, "com.polopoly.cm.client.impl.service2client.ContentBase", new ContentBaseProcessor());
-    i.addIntegrationProcessor(cl, new StaticFileFilterProcessor());
+    Configuration configuration = ConfigurationProvider.instance().getConfiguration().configuration;
+    if (configuration.enableFilterProcessing() || configuration.hasFilterFiles()) {
+        i.addIntegrationProcessor(cl, new StaticFileFilterProcessor());
+    } else {
+        LoggerFactory.getInstance().echo("pp-rebel.NOTICE: Not patching servlet filters, static file processing will be disabled until restart");
+    }
 //    
 //    // Set up the reload listener
 //    ReloaderFactory.getInstance().addClassReloadListener(

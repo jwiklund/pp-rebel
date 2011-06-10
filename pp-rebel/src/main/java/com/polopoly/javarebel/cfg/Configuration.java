@@ -10,9 +10,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
@@ -68,6 +70,9 @@ public class Configuration {
         @XmlElementRef(name = "filter", type = FilterItem.class)
     })
     private List<Object> content;
+    @XmlAttribute(name = "patchFilters")
+    @XmlSchemaType(name = "anySimpleType")
+    private String patchFilters;
     @XmlTransient
     private Map<String, List<Item>> contentIndex;
     @XmlTransient
@@ -113,7 +118,16 @@ public class Configuration {
     {
         return filterIndex.get(filtername);
     }
-    
+
+    public boolean hasFilterFiles() {
+        return !filterIndex.isEmpty();
+    }
+
+    public boolean enableFilterProcessing()
+    {
+        return "true".equals(patchFilters);
+    }
+
     @Override
     public int hashCode()
     {
