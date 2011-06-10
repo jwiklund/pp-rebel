@@ -28,14 +28,8 @@ import com.polopoly.javarebel.cfg.ConfigurationProvider;
 import com.polopoly.javarebel.contentfiles.ContentBaseProcessor;
 import com.polopoly.javarebel.staticfiles.StaticFileFilterProcessor;
 
-/**
- * A plugin that loads content files from disk (hopefully)
- */
 public class PolopolyJRebelPlugin implements Plugin {
 
-  /**
-   * Set up the integration (register CBPs)
-   */
   public void preinit() {
     // Register the CBP
     Integration i = IntegrationFactory.getInstance();
@@ -45,7 +39,7 @@ public class PolopolyJRebelPlugin implements Plugin {
     if (configuration.enableFilterProcessing() || configuration.hasFilterFiles()) {
         i.addIntegrationProcessor(cl, new StaticFileFilterProcessor());
     } else {
-        LoggerFactory.getInstance().echo("pp-rebel.NOTICE: Not patching servlet filters, static file processing will be disabled until restart");
+        LoggerFactory.getInstance().echo("pp-rebel.INFO: Not patching servlet filters, static file processing will be disabled until restart");
     }
 //    
 //    // Set up the reload listener
