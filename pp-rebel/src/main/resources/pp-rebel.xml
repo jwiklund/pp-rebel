@@ -1,8 +1,9 @@
-<pp-rebel>
+<pp-rebel patchFilters="true">
   <!-- Polopoly Resources -->
   <filter name="requestwatcherfilter">
     <less path="/polopoly/stylesheets">assemblies/admin-gui-war/src/main/lesscss/stylesheets</less>
     <js path="/polopoly">assemblies/admin-gui-war/src/main/javascript/package.js</js>
+    <dir path="/polopoly/script">assemblies/admin-gui-war/src/main/webapp/script</dir>
   </filter>
   <!-- Preview Resources -->
   <filter name="previewrequiresgui">
