@@ -10,7 +10,7 @@
 
   <properties>
     <jr.version>3.6.1</jr.version>
-    <lesscss.version>1.1.42</lesscss.version>
+    <lesscss.version>1.1.4</lesscss.version>
   </properties>
 
   <name>Polopoly JRebel Plugin</name>
