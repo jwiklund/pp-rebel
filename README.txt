@@ -10,5 +10,5 @@ Install:
   Copy pp-rebel.xml to $HOME_OF_POLOPOLY_INSTALLATION
   Add to CATALINA_OPTS
     -DPP_HOME=$HOME_OF_POLOPOLY_INSTALLATION
-    -Drebel.plugins=$THIS_PATH/pp-rebel/target/pp-rebel-1.0-SNAPSHOT-jar-with-dependencies.jar
+    -Drebel.plugins=$THIS_PATH/pp-rebel/target/pp-rebel-1.1-SNAPSHOT-jar-with-dependencies.jar
     -Drebel.pp-rebel=true
