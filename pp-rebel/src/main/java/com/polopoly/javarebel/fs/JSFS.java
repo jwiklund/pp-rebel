@@ -43,7 +43,7 @@ public class JSFS implements FS {
         int index = path.lastIndexOf('/');
         String dir = index == -1 ? "/" : path.substring(0, index);
         String name = path.substring(index+1);
-        if (getFiles(name) == null) {
+        if (getFiles(path) == null) {
             return null;
         }
         boolean isDirectory = false;
