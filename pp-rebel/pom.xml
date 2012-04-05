@@ -10,7 +10,7 @@
 
   <properties>
     <jr.version>3.6.1</jr.version>
-    <lesscss.version>1.1.4</lesscss.version>
+    <lesscss.version>1.1.5</lesscss.version>
   </properties>
 
   <name>Polopoly JRebel Plugin</name>
@@ -69,30 +69,27 @@
   <repositories>
     <repository>
       <id>zt-repo</id>
-      <url>http://repos.zeroturnaround.com/maven2</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
+      <url>http://repos.zeroturnaround.com/nexus/content/groups/zt-public</url>
       <releases>
         <enabled>true</enabled>
         <checksumPolicy>ignore</checksumPolicy>
       </releases>
     </repository>
     <repository>
-      <id>zt-repo-snapshots</id>
-      <url>http://repos.zeroturnaround.com/maven2-snapshots</url>
+      <id>asual-repo</id>
+      <url>http://www.asual.com/maven/content/repositories/releases</url>
       <snapshots>
-        <enabled>true</enabled>
-        <checksumPolicy>ignore</checksumPolicy>
+        <enabled>false</enabled>
       </snapshots>
       <releases>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
+        <checksumPolicy>ignore</checksumPolicy>
       </releases>
     </repository>
     <repository>
       <id>ibiblio</id>
       <url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
-      <snapshots>
+     <snapshots>
         <enabled>false</enabled>
       </snapshots>
       <releases>
@@ -106,6 +103,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+	<version>2.3.2</version>
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
@@ -114,6 +112,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+	<version>2.4</version>
         <configuration>
           <archive>
             <manifestEntries>

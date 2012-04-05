@@ -13,7 +13,6 @@
   <description>Polopoly Development Tools Parent</description>
 
   <modules>
-    <module>lesscss-engine</module>
     <module>pp-rebel</module>
   </modules>
 </project>
