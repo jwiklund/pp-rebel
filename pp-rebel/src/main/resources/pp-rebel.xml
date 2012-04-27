@@ -18,14 +18,24 @@
     <less>public-artifacts/admin-gui/src/main/lesscss</less>
     <dir>public-artifacts/admin-gui/src/main/contentfiles</dir>
   </content>
-  <content externalid="plugins.com.polopoly.extensions.tablet.files">
-    <less>extensions/tablet/src/main/lesscss</less>
-    <dir>extensions/tablet/src/main/contentfiles</dir>
-  </content>
   <content externalid="p.GuiLanguages">
     <dir>dist/gui-languages</dir>
   </content>
   <content externalid="extra.GuiLanguages">
     <dir>sites/greenfieldtimes-example/src/resources/content/gui-languages</dir>
   </content>
+
+
+<!-- default conf for atp -->
+
+<!--
+  <content externalid="plugins.com.polopoly.atp.tablet.files">
+    <dir>atp-plugin/tablet/src/main/contentfiles</dir>
+  </content>
+  <content externalid="plugins.com.polopoly.atp.tablet-example.files">
+    <less>atp-plugin/tablet-example/src/main/lesscss</less>
+    <dir>atp-plugin/tablet-example/src/main/contentfiles</dir>
+  </content>
+-->
+
 </pp-rebel>
