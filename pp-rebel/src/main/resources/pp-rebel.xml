@@ -3,7 +3,6 @@
   <filter name="requestwatcherfilter">
     <less path="/polopoly/stylesheets">public-artifacts/admin-gui/src/main/lesscss/stylesheets</less>
     <js path="/polopoly">public-artifacts/admin-gui/src/main/javascript/package.js</js>
-    <dir path="/polopoly/script">public-artifacts/admin-gui/src/main/webapp/script</dir>
   </filter>
   <!-- Preview Resources -->
   <filter name="previewrequiresgui">
@@ -14,13 +13,14 @@
     <less>assemblies/interactive-preview/src/main/lesscss</less>
     <dir>assemblies/interactive-preview/src/main/resources</dir>
   </content>
+  <content externalid="p.webapp.polopoly">
+    <js>public-artifacts/admin-gui/src/main/javascript/package.js</js>
+    <less>public-artifacts/admin-gui/src/main/lesscss</less>
+    <dir>public-artifacts/admin-gui/src/main/contentfiles</dir>
+  </content>
   <content externalid="plugins.com.polopoly.extensions.tablet.files">
     <less>extensions/tablet/src/main/lesscss</less>
     <dir>extensions/tablet/src/main/contentfiles</dir>
-  </content>
-  <content externalid="plugins.com.polopoly.extensions.tablet-example.files">
-    <less>extensions/tablet-example/src/main/lesscss</less>
-    <dir>extensions/tablet-example/src/main/contentfiles</dir>
   </content>
   <content externalid="p.GuiLanguages">
     <dir>dist/gui-languages</dir>
