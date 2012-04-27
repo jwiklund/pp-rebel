@@ -99,6 +99,16 @@
         <enabled>true</enabled>
       </releases>
     </repository>
+    <repository>
+      <id>asual</id>
+      <url>http://www.asual.com/maven/content/groups/public/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
   </repositories>
 
   <build>
