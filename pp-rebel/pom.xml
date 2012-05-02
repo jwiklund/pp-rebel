@@ -9,7 +9,7 @@
   <packaging>jar</packaging>
 
   <properties>
-    <jr.version>3.6.1</jr.version>
+    <jr.version>4.6.2</jr.version>
     <lesscss.version>1.1.5</lesscss.version>
   </properties>
 
@@ -32,6 +32,12 @@
       <groupId>org.zeroturnaround</groupId>
       <artifactId>jr-utils</artifactId>
       <version>${jr.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.zeroturnaround</groupId>
+      <artifactId>jr-javassist</artifactId>
+      <version>3.14.0-GA</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

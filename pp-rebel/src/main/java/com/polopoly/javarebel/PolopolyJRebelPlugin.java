@@ -71,10 +71,6 @@ public class PolopolyJRebelPlugin implements Plugin {
 
   }
 
-  public boolean checkDependencies(ClassLoader classLoader, ClassResourceSource classResourceSource) {
-    return classResourceSource.getClassResource("com.polopoly.cm.client.impl.service2client.ContentBase") != null;
-  }
-
   public String getId() {
     return "pp-rebel";
   }
@@ -92,6 +88,20 @@ public class PolopolyJRebelPlugin implements Plugin {
   }
 
   public String getWebsite() {
+    return null;
+  }
+
+  public boolean checkDependencies(ClassLoader classLoader, ClassResourceSource classResourceSource) {
+    return classResourceSource.getClassResource("com.polopoly.cm.client.impl.service2client.ContentBase") != null;
+  }
+
+  public String getSupportedVersions()
+  {
+    return null;
+  }
+
+  public String getTestedVersions()
+  {
     return null;
   }
 }
