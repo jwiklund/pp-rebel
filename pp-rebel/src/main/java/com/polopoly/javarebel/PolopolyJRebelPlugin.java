@@ -37,12 +37,11 @@ public class PolopolyJRebelPlugin implements Plugin {
     i.addIntegrationProcessor(cl, "com.polopoly.cm.client.impl.service2client.ContentBase", new ContentBaseProcessor());
     Cfg cfg = ConfigurationProvider.instance().getConfiguration();
     if (cfg == null) {
-        LoggerFactory.getInstance().echo("pp-rebel.ERROR: No configuration present, turning off pp-rebel");
         throw new RuntimeException("pp-rebel could not find pp-rebel.xml, please specify a valid PP_HOME property");
     } else if (cfg.configuration == null) {
         LoggerFactory.getInstance().echo("pp-rebel.INFO: Not patching servlet filters," +
                                          " static file processing will be disabled until restart" +
-                                         " (no configuration, invalid configuration file?)");
+                                         " (no configuration)");
     } else if (cfg.configuration.enableFilterProcessing() || cfg.configuration.hasFilterFiles()) {
         i.addIntegrationProcessor(cl, new StaticFileFilterProcessor());
     } else {
