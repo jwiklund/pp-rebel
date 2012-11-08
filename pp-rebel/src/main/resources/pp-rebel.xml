@@ -1,12 +1,16 @@
-<pp-rebel patchFilters="true">
-  <!-- Polopoly Resources -->
+<pp-rebel patchFilters="false">
+  <!-- Polopoly Resources (moved to p.webapp.polopoly) -->
+  <!--
   <filter name="requestwatcherfilter">
     <less path="/polopoly/stylesheets">public-artifacts/admin-gui/src/main/lesscss/stylesheets</less>
     <js path="/polopoly">public-artifacts/admin-gui/src/main/javascript/package.js</js>
   </filter>
-  <!-- Preview Resources -->
+  -->
+  <!-- Preview Resources (moved to p.InteractivePreview)-->
+  <!--
   <filter name="previewrequiresgui">
   </filter>
+  -->
   <!-- Content Files -->
   <content externalid="p.InteractivePreview">
     <js>assemblies/interactive-preview/src/main/javascript/package.js</js>
