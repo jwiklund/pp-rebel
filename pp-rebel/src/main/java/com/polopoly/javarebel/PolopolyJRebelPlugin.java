@@ -39,10 +39,15 @@ public class PolopolyJRebelPlugin implements Plugin {
     if (cfg == null) {
         LoggerFactory.getInstance().echo("pp-rebel.ERROR: No configuration present, turning off pp-rebel");
         throw new RuntimeException("pp-rebel could not find pp-rebel.xml, please specify a valid PP_HOME property");
+    } else if (cfg.configuration == null) {
+        LoggerFactory.getInstance().echo("pp-rebel.INFO: Not patching servlet filters," +
+                                         " static file processing will be disabled until restart" +
+                                         " (no configuration, invalid configuration file?)");
     } else if (cfg.configuration.enableFilterProcessing() || cfg.configuration.hasFilterFiles()) {
         i.addIntegrationProcessor(cl, new StaticFileFilterProcessor());
     } else {
-        LoggerFactory.getInstance().echo("pp-rebel.INFO: Not patching servlet filters, static file processing will be disabled until restart");
+        LoggerFactory.getInstance().echo("pp-rebel.INFO: Not patching servlet filters," +
+                                         " static file processing will be disabled until restart");
     }
 //    
 //    // Set up the reload listener
