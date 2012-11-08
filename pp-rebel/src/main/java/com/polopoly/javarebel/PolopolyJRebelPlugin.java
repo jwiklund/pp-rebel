@@ -23,8 +23,8 @@ import org.zeroturnaround.javarebel.IntegrationFactory;
 import org.zeroturnaround.javarebel.LoggerFactory;
 import org.zeroturnaround.javarebel.Plugin;
 
-import com.polopoly.javarebel.cfg.Configuration;
 import com.polopoly.javarebel.cfg.ConfigurationProvider;
+import com.polopoly.javarebel.cfg.ConfigurationProvider.Cfg;
 import com.polopoly.javarebel.contentfiles.ContentBaseProcessor;
 import com.polopoly.javarebel.staticfiles.StaticFileFilterProcessor;
 
@@ -35,8 +35,11 @@ public class PolopolyJRebelPlugin implements Plugin {
     Integration i = IntegrationFactory.getInstance();
     ClassLoader cl = PolopolyJRebelPlugin.class.getClassLoader();
     i.addIntegrationProcessor(cl, "com.polopoly.cm.client.impl.service2client.ContentBase", new ContentBaseProcessor());
-    Configuration configuration = ConfigurationProvider.instance().getConfiguration().configuration;
-    if (configuration.enableFilterProcessing() || configuration.hasFilterFiles()) {
+    Cfg cfg = ConfigurationProvider.instance().getConfiguration();
+    if (cfg == null) {
+        LoggerFactory.getInstance().echo("pp-rebel.ERROR: No configuration present, turning off pp-rebel");
+        throw new RuntimeException("pp-rebel could not find pp-rebel.xml, please specify a valid PP_HOME property");
+    } else if (cfg.configuration.enableFilterProcessing() || cfg.configuration.hasFilterFiles()) {
         i.addIntegrationProcessor(cl, new StaticFileFilterProcessor());
     } else {
         LoggerFactory.getInstance().echo("pp-rebel.INFO: Not patching servlet filters, static file processing will be disabled until restart");

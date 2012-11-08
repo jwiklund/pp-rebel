@@ -57,7 +57,7 @@ public class ConfigurationProvider {
         }
         lastCheck = System.currentTimeMillis();
         if ((!configFile.exists() || configFile.isDirectory()) && exists) {
-            LoggerFactory.getInstance().echo("Error, " + configFile.getAbsolutePath() + " does not exist");
+            LoggerFactory.getInstance().echo("pp-rebel.ERROR: " + configFile.getAbsolutePath() + " does not exist");
             exists = false;
         }
         if (!exists) {
